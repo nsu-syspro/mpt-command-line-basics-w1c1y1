@@ -18,7 +18,7 @@ cd "$TMP_DIR"
 bash "$ROOT_DIR/solution/task1.sh"
 
 diff -U 1000 \
-  <(cat "$SCRIPT_DIR/out.expected") \
+  <(cat "$SCRIPT_DIR/out.expected" | sort) \
   <(tar -tf "$TMP_DIR/data/archive-combined.tar.gz" \
-    | sed '/^\.\/$/d' | sed 's/^\.\///')
+    | sed '/^\.\/$/d' | sed 's/^\.\///' | sort)
 #     ^ Try to tolerate starting './' in the archived paths
