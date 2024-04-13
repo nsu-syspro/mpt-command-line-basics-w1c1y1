@@ -2,6 +2,8 @@
 
 set -e
 
+LC_ALL=C
+
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 ROOT_DIR="$SCRIPT_DIR/../.."
 
@@ -10,11 +12,11 @@ TMP_DIR=`mktemp -d`
 ######################
 
 read -r -d '\0' EXPECTED << EOF
-abc.txt
-ab.txt
 a.txt
-bar.txt
+ab.txt
+abc.txt
 b.txt
+bar.txt
 foo.txt
 \0
 EOF
