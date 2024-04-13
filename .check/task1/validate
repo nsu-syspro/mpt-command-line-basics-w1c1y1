@@ -11,7 +11,9 @@ TMP_DIR=`mktemp -d`
 
 ###################
 
-cp -r "$ROOT_DIR/data" "$TMP_DIR/data"
+mkdir -p "$TMP_DIR/data"
+
+cp "$ROOT_DIR/data/archive-part"{1.tar,2.zip} "$TMP_DIR/data"
 
 echo "Test case #1"
 
