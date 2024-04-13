@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+source ../common.sh
+
+######################
+
+read -r -d '\0' EXPECTED << EOF
+abc.txt
+ab.txt
+a.txt
+bar.txt
+b.txt
+foo.txt
+\0
+EOF
+
+######################
+
+function test_solution() {
+  diff -U 1000 \
+    <(echo "$EXPECTED") \
+    <(bash "$ROOT_DIR/solution/task3.sh" 2>&1)
+}
+
+
+# 1. Test same directory
+
+echo "Test case #1"
+
+mkdir -p "$TMP_DIR/test1"
+cd "$TMP_DIR/test1"
+touch $EXPECTED
+cd "$TMP_DIR/test1" && test_solution
+
+
+# 2. Test files in directory structure with redundant files and directories
+
+echo "Test case #2"
+
+mkdir -p "$TMP_DIR"/test2/{directory,structure,foo.txt}/sample
+
+touch "$TMP_DIR/test2/directory/sample/b.txt"
+touch "$TMP_DIR/test2/directory/ab.txt"
+touch "$TMP_DIR/test2/directory/b.txt.bar"
+touch "$TMP_DIR/test2/foo.txt/abc.txt"
+touch "$TMP_DIR/test2/structure/sample/bar.txt"
+touch "$TMP_DIR/test2/structure/foo.txt"
+touch "$TMP_DIR/test2/a.txt"
+
+cd "$TMP_DIR/test2" && test_solution
