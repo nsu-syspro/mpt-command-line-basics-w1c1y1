@@ -26,7 +26,8 @@ EOF
 function test_solution() {
   diff -U 1000 \
     <(echo "$EXPECTED") \
-    <(bash "$ROOT_DIR/solution/task3.sh" 2>&1)
+    <(bash "$ROOT_DIR/solution/task3.sh" 2>&1) \
+    || (echo && echo "Test structure:" && tree && exit 1)
 }
 
 
