@@ -67,7 +67,3 @@ b.txt
 > [!TIP]
 > Вам понадобится [find](https://linux.die.net/man/1/find), [basename](https://linux.die.net/man/1/basename)
 > и [sort](https://linux.die.net/man/1/sort).
-
-> [!CAUTION]
-> Чтобы избежать неожиданных проблем с сортировкой строк и их отображением,
-> рекомендуется явно выставлять переменную окружения `LC_ALL=C` в решении этого задания.
