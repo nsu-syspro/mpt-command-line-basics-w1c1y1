@@ -1,5 +1,7 @@
 # Знакомство с командной строкой
 
+<img alt="points bar" align="right" height="36" src="../../blob/badges/.github/badges/points-bar.svg" />
+
 [![Напутственная картинка](https://imgs.xkcd.com/comics/tar_2x.png)](https://xkcd.com/1168)
 
 Для решения каждого из заданий необходимо выписать последовательность команд,

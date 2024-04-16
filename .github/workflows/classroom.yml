@@ -1,12 +1,15 @@
 name: Autograding Tests
 'on':
-- push
-- workflow_dispatch
-- repository_dispatch
+  push:
+    branches:
+    - '*'
+    - '!badges'
+  workflow_dispatch:
+  repository_dispatch:
 permissions:
   checks: write
   actions: read
-  contents: read
+  contents: write
 jobs:
   run-autograding-tests:
     runs-on: ubuntu-latest
@@ -25,3 +28,20 @@ jobs:
 
     - uses: education/autograding@v1
       id: autograder
+
+    ############################
+    # Generate points bar badge
+    - run: git checkout badges || git checkout -b badges
+    - name: points bar
+      uses: markpatterson27/points-bar@v1
+      with:
+        points: ${{ steps.autograder.outputs.points }}
+        path: '.github/badges/points-bar.svg'
+        label: 'Баллы'
+    - name: Commit changes to points bar
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add '.github/badges/points-bar.svg'
+        git commit -m "Add/Update points bar" || exit 0
+        git push origin badges
