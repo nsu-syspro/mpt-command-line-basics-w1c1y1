@@ -42,10 +42,10 @@ EXPECTED=`cat foo.txt bar.txt baz.txt`
 
 function test_solution() {
   set +e
-  ACTUAL=`bash -c "$ROOT_DIR/solution/task2.sh" 2>&1`
+  ACTUAL=`bash -c "bash $ROOT_DIR/solution/task2.sh" 2>&1`
   ACTUAL_EXIT=$?
   set -e
-  if [[ $ACTUAL_EXIT ]]; then
+  if [[ $ACTUAL_EXIT -ne 0 ]]; then
     echo "$ACTUAL"
     exit $ACTUAL_EXIT
   fi
