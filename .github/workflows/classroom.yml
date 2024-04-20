@@ -15,13 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     if: github.actor != 'github-classroom[bot]'
     steps:
-    - name: Set Locale
-      run: |
-        sudo apt-get update && sudo apt-get install tzdata locales -y   
-        sudo locale-gen ru_RU.UTF-8
-        sudo locale-gen ru_RU
-        locale -a
-
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
@@ -31,13 +24,19 @@ jobs:
 
     ############################
     # Generate points bar badge
+    #
+    # Note: will run even if autograding failed
+    # thanks to `if: success() || failure()`.
+    #
     - run: git checkout badges || git checkout -b badges
+      if: success() || failure()
     - name: points bar
       uses: markpatterson27/points-bar@v1
       with:
         points: ${{ steps.autograder.outputs.points }}
         path: '.github/badges/points-bar.svg'
         label: 'Баллы'
+      if: success() || failure()
     - name: Commit changes to points bar
       run: |
         git config --local user.email "action@github.com"
@@ -45,3 +44,4 @@ jobs:
         git add '.github/badges/points-bar.svg'
         git commit -m "Add/Update points bar" || exit 0
         git push origin badges
+      if: success() || failure()
