@@ -7,7 +7,7 @@ export LC_ALL=C
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 ROOT_DIR="$SCRIPT_DIR/../.."
 
-TMP_DIR=`mktemp -d`
+TMP_DIR=$(mktemp -d)
 
 ###################
 
@@ -22,14 +22,14 @@ cd "$TMP_DIR"
 bash "$ROOT_DIR/solution/task1.sh"
 
 diff -U 1000 \
-  <(cat "$SCRIPT_DIR/out.expected" | sort) \
+  <(sort "$SCRIPT_DIR/out.expected") \
   <(tar -tf "$TMP_DIR/data/archive-combined.tar.gz" \
     | sed '/^\.\/$/d' | sed 's/^\.\///' | sort)
 #     ^ Try to tolerate starting './' in the archived paths
 
-SIZE_BEFORE=`stat -c%s "$ROOT_DIR/data/archive-part1.tar"`
-SIZE_AFTER=`stat -c%s "$TMP_DIR/data/archive-combined.tar.gz"`
-if [[ $SIZE_AFTER -ge $SIZE_BEFORE ]] then
+SIZE_BEFORE=$(stat -c%s "$ROOT_DIR/data/archive-part1.tar")
+SIZE_AFTER=$(stat -c%s "$TMP_DIR/data/archive-combined.tar.gz")
+if [[ $SIZE_AFTER -ge $SIZE_BEFORE ]]; then
   echo "Resulting archive is not compressed"
   echo "Expected size less than $SIZE_BEFORE, but actual size is $SIZE_AFTER"
   exit 1
