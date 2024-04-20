@@ -25,7 +25,7 @@ EOF
 
 function test_solution() {
   set +e
-  ACTUAL=`bash -c "bash $ROOT_DIR/solution/task3.sh" 2>&1`
+  ACTUAL=`bash "$ROOT_DIR/solution/task3.sh" 2>&1`
   ACTUAL_EXIT=$?
   set -e
   if [[ $ACTUAL_EXIT -ne 0 ]]; then
