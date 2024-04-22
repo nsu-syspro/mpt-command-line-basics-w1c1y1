@@ -21,7 +21,7 @@ cd "$TMP_DIR"
 
 bash "$ROOT_DIR/solution/task1.sh"
 
-diff -U 1000 \
+diff --color=always -U 1000 \
   <(sort "$SCRIPT_DIR/out.expected") \
   <(tar -tf "$TMP_DIR/data/archive-combined.tar.gz" \
     | sed '/^\.\/$/d' | sed 's/^\.\///' | sort)
